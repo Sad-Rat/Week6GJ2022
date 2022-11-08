@@ -1,5 +1,6 @@
 #include "components.h"
 #include "input.h"
+#include "projectile.h"
 #include <iostream>
 
 class SimpleController : public NativeScript
@@ -30,6 +31,10 @@ public:
 		{
 			// Jump
 			rb.body->ApplyLinearImpulseToCenter(b2Vec2(0.f, 0.3f), true);
+		}
+		if (Input::isKeyPressed(GLFW_KEY_S))
+		{
+
 		}
 		
 	};
