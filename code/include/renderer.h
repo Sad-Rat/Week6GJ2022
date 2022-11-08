@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <array>
 #include <memory>
+
 #include "texture.h"
 #include "shader.h"
 #include "VertexArray.h"
@@ -38,6 +39,7 @@ public:
 	static void begin(const glm::mat4& view, const glm::mat4& projection);
 	static void end();
 	static void drawQuad(const Quad& quad, const Texture& texture, const glm::vec4& tint);
+	static void drawText(const Quad& quad, const char& text, const glm::vec4& tint);
 private:
 	struct RendererData
 	{

@@ -66,6 +66,11 @@ void Renderer::drawQuad(const Quad& quad, const Texture& texture, const glm::vec
 	glDrawElements(GL_QUADS, s_data.VAO->getDrawCount(), GL_UNSIGNED_INT, nullptr);
 }
 
+void Renderer::drawText(const Quad& quad, const char& text, const glm::vec4& tint)
+{
+	
+}
+
 void Renderer::clearScreen()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
