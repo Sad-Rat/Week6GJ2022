@@ -6,7 +6,7 @@
 entt::registry Scene::m_registry;
 std::shared_ptr<b2World> Scene::m_physicsWorld = nullptr;
 
-Scene::Scene()
+Scene::Scene(float winWidth, float winHeight)
 {
 	m_physicsWorld.reset(new b2World(b2Vec2(0.f, -9.81f)));
 	m_physicsWorld->SetContactListener(&m_listener);
@@ -39,6 +39,10 @@ Scene::Scene()
 	m_registry.emplace<CameraControllerComponent>(m_camera);
 	m_registry.emplace<NativeScriptComponent>(m_camera);
 	m_registry.get<NativeScriptComponent>(m_camera).create<CamController>(m_camera);
+
+
+
+	m_UI.reset(new UI(winWidth, winHeight, plainWhiteTexture));
 }
 
 
@@ -92,4 +96,6 @@ void Scene::onRender()
 	}
 
 	Renderer::end();
+
+	m_UI->onRender();
 }

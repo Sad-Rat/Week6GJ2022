@@ -116,3 +116,15 @@ Quad Quad::createCentreHalfExtents(const glm::vec2& centre, const glm::vec2& hal
 
 	return result;
 }
+
+Quad Quad::createTopLeftExtents(const glm::vec2& topLeft, const glm::vec2& Extents)
+{
+	Quad result;
+
+	result.m_position = topLeft + Extents*0.5f;
+	result.m_position.y -= Extents.y;
+	result.m_halfExtents = Extents*0.5f;
+	result.m_angle = 0;
+
+	return result;
+}

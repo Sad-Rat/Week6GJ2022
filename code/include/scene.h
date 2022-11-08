@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <box2d/box2d.h>
 
+#include "UI.h"
 #include "texture.h"
 #include "renderer.h"
 #include "components.h"
@@ -11,7 +12,7 @@
 class Scene
 {
 public:
-	Scene();
+	Scene(float winWidth, float winHeight);
 	void onUpdate(float timeStep);
 	void onRender();
 	static entt::registry& getRegistry() { return m_registry; }
@@ -19,6 +20,7 @@ public:
 private:
 	static entt::registry m_registry; //!< Entities stored in the registry - everything goes through this!
 	static std::shared_ptr<b2World> m_physicsWorld;
+	std::shared_ptr<UI> m_UI;
 	CollisionListener m_listener;
 
 	// Some entities, thse could also go in a vector or array
