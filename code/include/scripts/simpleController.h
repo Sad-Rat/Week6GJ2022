@@ -11,6 +11,8 @@ public:
 	{
 		auto& rc = m_registry.get<RenderComponent>(m_entity);
 		m_colour = rc.tint;
+		unsigned char whitePx[3] = { 255,255,255 };
+		plainWhiteTexture.reset(new Texture(1, 1, 3, whitePx, 1));
 	};
 
 	void onUpdate(float timestep) override 
@@ -20,6 +22,8 @@ public:
 		if (m_colour.x > 0.8f) m_colour.x -= 1.f;
 		if (m_colour.y > 0.8f) m_colour.y -= 1.f;
 		if (m_colour.z > 0.8f) m_colour.z -= 1.f;
+
+		timePass += timestep;
 
 		auto& rc = m_registry.get<RenderComponent>(m_entity);
 		rc.tint = m_colour;
@@ -34,7 +38,13 @@ public:
 		}
 		if (Input::isKeyPressed(GLFW_KEY_S))
 		{
+			if (timePass >= 1) 
+			{
+				projectile proj1(glm::vec2(5.0f, 5.0f), glm::vec2(5.0f, 0.0f), glm::vec2(0.5f, 0.5f), 5.f, 0.f, plainWhiteTexture);
+				timePass = 0.f;
 
+			}
+			
 		}
 		
 	};
@@ -44,4 +54,6 @@ public:
 	};
 private:
 	glm::vec4 m_colour = glm::vec4(1.f);
+	std::shared_ptr<Texture> plainWhiteTexture;
+	float timePass = 0.f;
 };

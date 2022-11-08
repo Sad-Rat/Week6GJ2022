@@ -1,6 +1,6 @@
 #include "projectile.h"
 #include "scene.h"
-
+#include "scripts/simpleController.h"
 
 projectile::projectile(glm::vec2 pos, glm::vec2 velocity, glm::vec2 size, float dmg, float orientation, std::shared_ptr<Texture> texture)
 {
@@ -15,8 +15,7 @@ projectile::projectile(glm::vec2 pos, glm::vec2 velocity, glm::vec2 size, float 
 	zeroRes.restitution = 0.f;
 	m_registry.emplace<BoxColliderComponent>(m_projEnt, m_projEnt, zeroRes); // Add a box collider with 0 resistition
 	m_registry.emplace<NativeScriptComponent>(m_projEnt);
-	//m_registry.get<NativeScriptComponent>(m_projEnt).create<SimpleController>(m_projEnt);
-
+	m_registry.get<NativeScriptComponent>(m_projEnt).create<SimpleController>(m_projEnt);
 
 	m_projDmgVal = dmg;
 
