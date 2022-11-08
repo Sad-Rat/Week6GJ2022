@@ -41,7 +41,7 @@ private:
 	struct RendererData
 	{
 		RendererData() {};
-		glm::vec3 clearColour = glm::vec3(1.f);
+		glm::vec3 clearColour = glm::vec3(0.f);
 		std::shared_ptr<Shader> shader;
 		std::shared_ptr<VertexArray> VAO;
 	};
