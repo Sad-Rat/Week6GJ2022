@@ -34,7 +34,6 @@ public:
 		//{
 		//	// Jump
 		//	rb.body->ApplyLinearImpulseToCenter(b2Vec2(0.f, 0.3f), true);
-
 		//}
 
 		if (Input::isKeyPressed(GLFW_KEY_W))
@@ -99,26 +98,6 @@ public:
 		if (Input::isKeyPressed(GLFW_KEY_E))
 		{
 			DesAnglVel = -2.5f;
-		}
-
-
-		if (!Input::isKeyPressed(GLFW_KEY_W))
-		{
-			// Up
-			//rb.body->ApplyLinearImpulseToCenter(b2Vec2(0.f, -0.2f), true);
-		}
-		if (!Input::isKeyPressed(GLFW_KEY_A))
-		{
-			// Up
-			//rb.body->ApplyLinearImpulseToCenter(b2Vec2(0.2f, 0.0f), true);
-		}if (!Input::isKeyPressed(GLFW_KEY_S))
-		{
-			// Up
-			//rb.body->ApplyLinearImpulseToCenter(b2Vec2(0.f, 0.2f), true);
-		}if (!Input::isKeyPressed(GLFW_KEY_D))
-		{
-			// Up
-			//rb.body->ApplyLinearImpulseToCenter(b2Vec2(-0.2f, 0.f), true);
 		}
 
 		b2Vec2 CurVel = rb.body->GetLinearVelocity();
