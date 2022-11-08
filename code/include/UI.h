@@ -12,6 +12,8 @@ public:
 	inline float getWinHeight() { return w_height; }
 	inline void setWinWidth(float width) { w_width = width; }
 	inline void setWinHeight(float height) { w_height = height; }
+	inline float getHpRemaining() { return hpRemaining; }
+	inline void setHPRemaining(float HP, float HPMax) { hpRemaining = HP / HPMax; }
 private:
 	std::shared_ptr<Texture> hpTexture;
 	std::shared_ptr<Texture> plainWhiteTexture;
@@ -19,4 +21,5 @@ private:
 	glm::mat4 m_proj;
 	float w_width;
 	float w_height;
+	float hpRemaining;
 };
