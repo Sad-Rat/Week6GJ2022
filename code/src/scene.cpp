@@ -82,6 +82,7 @@ void Scene::onRender()
 	Renderer::begin(cam.view, cam.proj);
 	Renderer::clearScreen();
 
+
 	auto& renderView = m_registry.view<TransformComponent, RenderComponent>();
 
 	for (auto& entity : renderView)

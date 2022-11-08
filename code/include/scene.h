@@ -26,6 +26,7 @@ private:
 	entt::entity m_camera; 
 	entt::entity m_texturedBlock;
 	entt::entity m_fallingBlock;
+	entt::entity m_shader;
 
 	// Some textures
 	std::shared_ptr<Texture> plainWhiteTexture;
