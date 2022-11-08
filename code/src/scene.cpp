@@ -17,11 +17,11 @@ Scene::Scene()
 	unsigned char whitePx[3] = { 255,255,255 };
 	plainWhiteTexture.reset(new Texture(1, 1, 3, whitePx, 1));
 
-	m_texturedBlock = m_registry.create(); // Create the entity
-	m_registry.emplace<TransformComponent>(m_texturedBlock, glm::vec2(3.f, 2.f), glm::vec2(4.f, 0.5f), -5.f); // Add a transform to the block
-	m_registry.emplace<RenderComponent>(m_texturedBlock, letterCubeTexture, glm::vec4(1.f)); // Add a render component
-	m_registry.emplace<RigidBodyComponent>(m_texturedBlock, m_texturedBlock); // Add a static rigid body
-	m_registry.emplace<BoxColliderComponent>(m_texturedBlock, m_texturedBlock); // Add a box collider with standard physics
+	//m_texturedBlock = m_registry.create(); // Create the entity
+	//m_registry.emplace<TransformComponent>(m_texturedBlock, glm::vec2(3.f, 2.f), glm::vec2(4.f, 0.5f), -5.f); // Add a transform to the block
+	//m_registry.emplace<RenderComponent>(m_texturedBlock, letterCubeTexture, glm::vec4(1.f)); // Add a render component
+	//m_registry.emplace<RigidBodyComponent>(m_texturedBlock, m_texturedBlock); // Add a static rigid body
+	//m_registry.emplace<BoxColliderComponent>(m_texturedBlock, m_texturedBlock); // Add a box collider with standard physics
 
 	m_fallingBlock = m_registry.create(); 
 	m_registry.emplace<TransformComponent>(m_fallingBlock, glm::vec2(0.5f, 0.5f), glm::vec2(4.f, 7.0f), 0.f); // Add a transform to the block
