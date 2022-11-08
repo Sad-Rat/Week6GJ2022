@@ -8,7 +8,7 @@ std::shared_ptr<b2World> Scene::m_physicsWorld = nullptr;
 
 Scene::Scene()
 {
-	m_physicsWorld.reset(new b2World(b2Vec2(0.f, -9.81f)));
+	m_physicsWorld.reset(new b2World(b2Vec2(0.f, 0.f)));
 	m_physicsWorld->SetContactListener(&m_listener);
 
 	Renderer::setClearColour({ 1.f, 1.f, 1.f, 1.f });
