@@ -33,12 +33,22 @@ Scene::Scene()
 	m_registry.emplace<NativeScriptComponent>(m_fallingBlock);
 	m_registry.get<NativeScriptComponent>(m_fallingBlock).create<SimpleController>(m_fallingBlock);
 
+	m_wall = m_registry.create();
+	m_registry.emplace<TransformComponent>(m_wall, glm::vec2(1.5f, 0.2f), glm::vec2(10.f, 7.0f), 0.f); // Add a transform to the block
+	m_registry.emplace<RenderComponent>(m_wall, plainWhiteTexture, glm::vec4(1.f, 0.f, 0.f, 1.f)); // Add a render component
+	m_registry.emplace<RigidBodyComponent>(m_wall, m_wall, RigidBodyType::_static); // Add a dyanmic rigid body
+	zeroRes.restitution = 0.f;
+	m_registry.emplace<BoxColliderComponent>(m_wall, m_wall, zeroRes); // Add a box collider with 0 resistition
+
+
 	m_camera = m_registry.create();
 	m_registry.emplace<TransformComponent>(m_camera, glm::vec2(5.12f,4.f), glm::vec2(5.12f, 4.f), 0.f); // Add a transform to the block
 	m_registry.emplace<CameraComponent>(m_camera, m_camera);
 	m_registry.emplace<CameraControllerComponent>(m_camera);
 	m_registry.emplace<NativeScriptComponent>(m_camera);
 	m_registry.get<NativeScriptComponent>(m_camera).create<CamController>(m_camera);
+
+
 
 	m_projectiles.reserve(10000);
 
@@ -126,6 +136,7 @@ void Scene::onUpdate(float timeStep)
 		{
 			++it;
 		}
+
 	}
 	
 }

@@ -25,6 +25,7 @@ private:
 	entt::entity m_camera; 
 	entt::entity m_texturedBlock;
 	entt::entity m_fallingBlock;
+	entt::entity m_wall;
 	std::vector<entt::entity> m_projectiles;
 
 	float timepassed = -1.f;
