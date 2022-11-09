@@ -81,7 +81,7 @@ void Scene::onUpdate(float timeStep)
 		timepassed -= timeStep;
 	}
 
-	if (Input::isKeyPressed(GLFW_KEY_S) && timepassed < 0.f)
+	if (Input::isKeyPressed(GLFW_KEY_F) && timepassed < 0.f)
 	{
 		//auto& m_registry = Scene::getRegistry();
 		timepassed = 1.f;
@@ -92,7 +92,7 @@ void Scene::onUpdate(float timeStep)
 		glm::vec2 offset;
 		offset.x = cos(tc.angle) * (tc.halfExtents.y + 0.11);
 		offset.y = sin(tc.angle) * (tc.halfExtents.y + 0.11);
-		m_registry.emplace<TransformComponent>(m_projectiles.back(), glm::vec2(0.1f,0.1f), blockCenter+offset, 0.f); // Add a transform to the block
+		m_registry.emplace<TransformComponent>(m_projectiles.back(), glm::vec2(0.1f,0.1f), blockCenter+offset, glm::degrees(tc.angle)); // Add a transform to the block
 		m_registry.emplace<RenderComponent>(m_projectiles.back(), plainWhiteTexture, glm::vec4(1.f, 0.f, 0.f, 1.f)); // Add a render component
 		m_registry.emplace<RigidBodyComponent>(m_projectiles.back(), m_projectiles.back(), RigidBodyType::dynamic); // Add a dyanmic rigid body
 		PhysicsMaterial zeroRes;
@@ -107,6 +107,26 @@ void Scene::onUpdate(float timeStep)
 		rb.body->ApplyLinearImpulseToCenter(b2Vec2((cos(tc.angle) * 0.1f), (sin(tc.angle) * 0.1f)), true);
 	}
 
+	float thresh = 10 * 10;
+	auto& camTC = m_registry.get<TransformComponent>(m_camera);
+	for (auto it = m_projectiles.begin(); it != m_projectiles.end();)
+	{
+		auto entity = *it;
+		auto& tc = m_registry.get<TransformComponent>(entity);
+		glm::vec2 dist = tc.position - camTC.position;
+
+		glm::vec2 distSq = dist * dist;
+
+		if ((distSq.x + distSq.y) > thresh)
+		{
+			m_registry.destroy(entity);
+			it = m_projectiles.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
 	
 }
 
