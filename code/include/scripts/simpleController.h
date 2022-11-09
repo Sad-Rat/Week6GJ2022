@@ -91,6 +91,7 @@ public:
 
 			DesVel += b2Vec2(xPrime, yPrime);
 		}
+
 		if (Input::isKeyPressed(GLFW_KEY_Q))
 		{
 			DesAnglVel = 2.5f;
