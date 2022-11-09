@@ -19,8 +19,13 @@ void Renderer::init()
 	pointLight* secondPLight = new pointLight();
 	secondPLight->init({ 2, 3 }, 2.0f, s_data.shader.get());
 
-	addPointLight(mainPlight);
-	addPointLight(secondPLight);
+
+	for (size_t i = 0; i < 1000; i++)
+	{
+		addPointLight(mainPlight);
+	}
+	//addPointLight(mainPlight);
+	//addPointLight(secondPLight);
 
 
 	setClearColour({ s_data.clearColour, 1.0 });

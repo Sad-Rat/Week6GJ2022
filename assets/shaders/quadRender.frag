@@ -7,7 +7,7 @@ uniform vec3 aLightColour;
 
 uniform vec2 pLightPos;
 
-uniform vec2 PointLightsPos[20];
+uniform vec2 PointLightsPos[1000];
 uniform float PointLightsInten[20];
 uniform vec3 PointLightsColour[20];
 
@@ -22,7 +22,7 @@ float pointLight(vec2);
 void main()
 {
 	float pLightMul = 0.0f;
-	for (int i = 0; i < 19; i++)
+	for (int i = 0; i < 1000; i++)
 	{
 		pLightMul += pointLight(PointLightsPos[i]);
 	}
