@@ -4,3 +4,8 @@ enemyManager::enemyManager()
 {
 
 }
+
+enemyManager::getMovementVector()
+{
+
+}
