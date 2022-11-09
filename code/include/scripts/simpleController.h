@@ -40,8 +40,10 @@ public:
 		{
 			if (timePass >= 1) 
 			{
-				projectile proj1(glm::vec2(5.0f, 5.0f), glm::vec2(5.0f, 0.0f), glm::vec2(0.5f, 0.5f), 5.f, 0.f, plainWhiteTexture);
 				timePass = 0.f;
+				//projectile proj1(glm::vec2(5.0f, 5.0f), glm::vec2(7.0f, 7.0f), glm::vec2(0.2f, 0.2f), 5.f, 0.f, plainWhiteTexture);
+
+
 
 			}
 			

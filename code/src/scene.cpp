@@ -8,7 +8,7 @@ std::shared_ptr<b2World> Scene::m_physicsWorld = nullptr;
 
 Scene::Scene()
 {
-	m_physicsWorld.reset(new b2World(b2Vec2(0.f, -9.81f)));
+	m_physicsWorld.reset(new b2World(b2Vec2(0.f, 0.f)));
 	m_physicsWorld->SetContactListener(&m_listener);
 
 	Renderer::setClearColour({ 1.f, 1.f, 1.f, 1.f });
@@ -39,6 +39,9 @@ Scene::Scene()
 	m_registry.emplace<CameraControllerComponent>(m_camera);
 	m_registry.emplace<NativeScriptComponent>(m_camera);
 	m_registry.get<NativeScriptComponent>(m_camera).create<CamController>(m_camera);
+
+	m_projectiles.reserve(10000);
+
 }
 
 
@@ -73,6 +76,38 @@ void Scene::onUpdate(float timeStep)
 			transform.angle = rigidBody.body->GetAngle();
 		}
 	}
+	if (timepassed >= 0.f)
+	{
+		timepassed -= timeStep;
+	}
+
+	if (Input::isKeyPressed(GLFW_KEY_S) && timepassed < 0.f)
+	{
+		//auto& m_registry = Scene::getRegistry();
+		timepassed = 1.f;
+		m_projectiles.push_back(m_registry.create());
+
+		auto& tc = m_registry.get<TransformComponent>(m_fallingBlock);
+		glm::vec2 blockCenter = tc.position;
+		glm::vec2 offset;
+		offset.x = cos(tc.angle) * (tc.halfExtents.y + 0.11);
+		offset.y = sin(tc.angle) * (tc.halfExtents.y + 0.11);
+		m_registry.emplace<TransformComponent>(m_projectiles.back(), glm::vec2(0.1f,0.1f), blockCenter+offset, 0.f); // Add a transform to the block
+		m_registry.emplace<RenderComponent>(m_projectiles.back(), plainWhiteTexture, glm::vec4(1.f, 0.f, 0.f, 1.f)); // Add a render component
+		m_registry.emplace<RigidBodyComponent>(m_projectiles.back(), m_projectiles.back(), RigidBodyType::dynamic); // Add a dyanmic rigid body
+		PhysicsMaterial zeroRes;
+		zeroRes.restitution = 0.f;
+		m_registry.emplace<BoxColliderComponent>(m_projectiles.back(), m_projectiles.back(), zeroRes); // Add a box collider with 0 resistition
+		//m_registry.emplace<NativeScriptComponent>(m_projEnt);
+		//m_registry.get<NativeScriptComponent>(m_projEnt).create<SimpleController>(m_projEnt);
+
+
+
+		auto& rb = m_registry.get<RigidBodyComponent>(m_projectiles.back());
+		rb.body->ApplyLinearImpulseToCenter(b2Vec2((cos(tc.angle) * 0.1f), (sin(tc.angle) * 0.1f)), true);
+	}
+
+	
 }
 
 void Scene::onRender()

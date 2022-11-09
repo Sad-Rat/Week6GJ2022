@@ -14,36 +14,14 @@ projectile::projectile(glm::vec2 pos, glm::vec2 velocity, glm::vec2 size, float 
 	PhysicsMaterial zeroRes;
 	zeroRes.restitution = 0.f;
 	m_registry.emplace<BoxColliderComponent>(m_projEnt, m_projEnt, zeroRes); // Add a box collider with 0 resistition
-	m_registry.emplace<NativeScriptComponent>(m_projEnt);
-	m_registry.get<NativeScriptComponent>(m_projEnt).create<SimpleController>(m_projEnt);
+	//m_registry.emplace<NativeScriptComponent>(m_projEnt);
+	//m_registry.get<NativeScriptComponent>(m_projEnt).create<SimpleController>(m_projEnt);
 
-	m_projDmgVal = dmg;
+	
 
-	m_projOrientation = orientation;
-	m_projVelocity = velocity;
-	m_projPos = pos;
-	m_projSize = size;
+	auto& rb = m_registry.get<RigidBodyComponent>(m_projEnt);
+	rb.body->ApplyLinearImpulseToCenter(b2Vec2(velocity.x, velocity.y), true);
 
 }
 
-float projectile::getDamage()
-{
-	return 0.0f;
-}
 
-void projectile::setDamage(float dmg)
-{
-}
-
-glm::vec2 projectile::getProjectilePosition()
-{
-	return glm::vec2();
-}
-
-void projectile::setProjectilePosition(glm::vec2 pis)
-{
-}
-
-void projectile::onUpdate(float timestep)
-{
-}
