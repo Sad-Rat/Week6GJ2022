@@ -19,9 +19,12 @@ private:
 	std::shared_ptr<Texture> plainWhiteTexture;
 	std::shared_ptr<Texture> scoreTexture;
 	std::shared_ptr<Texture> timerTexture;
+	std::shared_ptr<Texture> numberTexture;
 	glm::mat4 m_view;
 	glm::mat4 m_proj;
 	float w_width;
 	float w_height;
 	float hpRemaining;
+	int score;
+	int timeSec;
 };

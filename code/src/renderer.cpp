@@ -52,7 +52,7 @@ void Renderer::end()
 	s_data.shader->stopUsing();
 }
 
-void Renderer::drawQuad(const Quad& quad, const Texture& texture, const glm::vec4& tint)
+void Renderer::drawQuad(const Quad& quad, const Texture& texture, const glm::vec4& tint, const glm::vec2& offset, const glm::vec2& size)
 {
 	texture.bindToSlot(0);
 	s_data.shader->uploadInt("u_texData", 0); // Tell the shader to use texture at correct unit
@@ -61,6 +61,11 @@ void Renderer::drawQuad(const Quad& quad, const Texture& texture, const glm::vec
 	glm::mat4 model = glm::scale(glm::rotate(glm::translate(glm::mat4(1.f), glm::vec3(quad.m_position, 0.0)),quad.m_angle, { 0.f, 0.f, 1.f }), glm::vec3(quad.m_halfExtents * 2.f, 1.f));
 	s_data.shader->uploadFloat4("u_tint", tint);
 	s_data.shader->uploadMat4("u_model", model);
+
+
+
+	s_data.shader->uploadFloat2("u_offset", offset);
+	s_data.shader->uploadFloat2("u_size", size);
 
 	// Issue drawcall
 	glDrawElements(GL_QUADS, s_data.VAO->getDrawCount(), GL_UNSIGNED_INT, nullptr);
