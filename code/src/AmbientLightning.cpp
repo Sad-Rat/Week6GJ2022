@@ -1,10 +1,10 @@
 #include "ambientlight.h"
 
-void AmbientLight::render(Shader* shader)
+void AmbientLight::render(Shader* shader, int)
 {
 
 }
-void AmbientLight::render()
+void AmbientLight::render(int)
 {
 
 }

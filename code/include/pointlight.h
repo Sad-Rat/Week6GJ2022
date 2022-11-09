@@ -4,14 +4,16 @@
 class pointLight : public light
 {
 public:
+	pointLight();
 	void init(vec2, float, Shader*);
-	virtual void render() override;
-	virtual void render(Shader*) override;
+	virtual void render(int) override;
+	virtual void render(Shader*, int) override;
 	virtual void setShader() override;
 	virtual void setColour() override;
 	virtual vec3 getColour() override;
 	virtual void setIntensity() override;
 	virtual float getIntensity() override;
+	void setPos(vec2 pos);
 
 
 private:

@@ -4,8 +4,8 @@
 class AmbientLight : public light
 {
 public:
-	virtual void render() override;
-	virtual void render(Shader*) override;
+	virtual void render(int) override;
+	virtual void render(Shader*, int) override;
 	virtual void setColour() override;
 	virtual vec3 getColour() override;
 	virtual void setIntensity() override;
