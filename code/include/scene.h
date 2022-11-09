@@ -25,6 +25,9 @@ private:
 	entt::entity m_camera; 
 	entt::entity m_texturedBlock;
 	entt::entity m_fallingBlock;
+	std::vector<entt::entity> m_projectiles;
+
+	float timepassed = -1.f;
 
 	// Some textures
 	std::shared_ptr<Texture> plainWhiteTexture;
