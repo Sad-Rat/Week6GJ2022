@@ -10,7 +10,7 @@ int main()
 	Window window("Test Window", 1024, 800);
 	Input::setCurrentWindow(window.getNativeWindow());
 
-	Scene scene;
+	Scene scene(window.getWidthF(), window.getHeightF());
 
 	Renderer::init();
 

@@ -52,7 +52,7 @@ void Renderer::end()
 	s_data.shader->stopUsing();
 }
 
-void Renderer::drawQuad(const Quad& quad, const Texture& texture, const glm::vec4& tint)
+void Renderer::drawQuad(const Quad& quad, const Texture& texture, const glm::vec4& tint, const glm::vec2& offset, const glm::vec2& size)
 {
 	texture.bindToSlot(0);
 	s_data.shader->uploadInt("u_texData", 0); // Tell the shader to use texture at correct unit
@@ -62,8 +62,18 @@ void Renderer::drawQuad(const Quad& quad, const Texture& texture, const glm::vec
 	s_data.shader->uploadFloat4("u_tint", tint);
 	s_data.shader->uploadMat4("u_model", model);
 
+
+
+	s_data.shader->uploadFloat2("u_offset", offset);
+	s_data.shader->uploadFloat2("u_size", size);
+
 	// Issue drawcall
 	glDrawElements(GL_QUADS, s_data.VAO->getDrawCount(), GL_UNSIGNED_INT, nullptr);
+}
+
+void Renderer::drawText(const Quad& quad, const char& text, const glm::vec4& tint)
+{
+	
 }
 
 void Renderer::clearScreen()
@@ -113,6 +123,18 @@ Quad Quad::createCentreHalfExtents(const glm::vec2& centre, const glm::vec2& hal
 	result.m_position = centre;
 	result.m_halfExtents = halfExtents;
 	result.m_angle = degrees ? glm::radians(angle) : angle;
+
+	return result;
+}
+
+Quad Quad::createTopLeftExtents(const glm::vec2& topLeft, const glm::vec2& Extents)
+{
+	Quad result;
+
+	result.m_position = topLeft + Extents*0.5f;
+	result.m_position.y -= Extents.y;
+	result.m_halfExtents = Extents*0.5f;
+	result.m_angle = 0;
 
 	return result;
 }

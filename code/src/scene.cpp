@@ -7,7 +7,7 @@
 entt::registry Scene::m_registry;
 std::shared_ptr<b2World> Scene::m_physicsWorld = nullptr;
 
-Scene::Scene()
+Scene::Scene(float winWidth, float winHeight)
 {
 	m_physicsWorld.reset(new b2World(b2Vec2(0.f, 0.f)));
 	m_physicsWorld->SetContactListener(&m_listener);
@@ -207,4 +207,6 @@ void Scene::onRender()
 	}
 
 	Renderer::end();
+
+	m_UI->onRender();
 }
