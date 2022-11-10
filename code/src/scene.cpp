@@ -38,30 +38,36 @@ Scene::Scene()
 	m_registry.emplace<TransformComponent>(m_wall1, glm::vec2(1.5f, 100.f), glm::vec2(100.f, 0.0f), 0.f); // Add a transform to the block
 	m_registry.emplace<RenderComponent>(m_wall1, plainWhiteTexture, glm::vec4(1.f, 0.f, 0.f, 1.f)); // Add a render component
 	m_registry.emplace<RigidBodyComponent>(m_wall1, m_wall1, RigidBodyType::_static); // Add a dyanmic rigid body
-	zeroRes.restitution = 0.f;
+
 	m_registry.emplace<BoxColliderComponent>(m_wall1, m_wall1, zeroRes); // Add a box collider with 0 resistition
 
 	m_wall2 = m_registry.create();
 	m_registry.emplace<TransformComponent>(m_wall2, glm::vec2(1.5f, 100.f), glm::vec2(-100.f, 0.0f), 0.f); // Add a transform to the block
 	m_registry.emplace<RenderComponent>(m_wall2, plainWhiteTexture, glm::vec4(1.f, 0.f, 0.f, 1.f)); // Add a render component
 	m_registry.emplace<RigidBodyComponent>(m_wall2, m_wall2, RigidBodyType::_static); // Add a dyanmic rigid body
-	zeroRes.restitution = 0.f;
+
 	m_registry.emplace<BoxColliderComponent>(m_wall2, m_wall2, zeroRes); // Add a box collider with 0 resistition
 
 	m_wall3 = m_registry.create();
 	m_registry.emplace<TransformComponent>(m_wall3, glm::vec2(100.f, 1.5f), glm::vec2(0.f, 100.0f), 0.f); // Add a transform to the block
 	m_registry.emplace<RenderComponent>(m_wall3, plainWhiteTexture, glm::vec4(1.f, 0.f, 0.f, 1.f)); // Add a render component
 	m_registry.emplace<RigidBodyComponent>(m_wall3, m_wall3, RigidBodyType::_static); // Add a dyanmic rigid body
-	zeroRes.restitution = 0.f;
+	
 	m_registry.emplace<BoxColliderComponent>(m_wall3, m_wall3, zeroRes); // Add a box collider with 0 resistition
 
 	m_wall4 = m_registry.create();
 	m_registry.emplace<TransformComponent>(m_wall4, glm::vec2(100.f, 1.5f), glm::vec2(0.f, -100.0f), 0.f); // Add a transform to the block
 	m_registry.emplace<RenderComponent>(m_wall4, plainWhiteTexture, glm::vec4(1.f, 0.f, 0.f, 1.f)); // Add a render component
 	m_registry.emplace<RigidBodyComponent>(m_wall4, m_wall4, RigidBodyType::_static); // Add a dyanmic rigid body
-	zeroRes.restitution = 0.f;
+
 	m_registry.emplace<BoxColliderComponent>(m_wall4, m_wall4, zeroRes); // Add a box collider with 0 resistition
 
+	m_wall5 = m_registry.create();
+	m_registry.emplace<TransformComponent>(m_wall5, glm::vec2(0.2f, 1.5f), glm::vec2(0.f, 0.f), 0.f); // Add a transform to the block
+	m_registry.emplace<RenderComponent>(m_wall5, plainWhiteTexture, glm::vec4(1.f, 0.f, 0.f, 1.f)); // Add a render component
+	m_registry.emplace<RigidBodyComponent>(m_wall5, m_wall5, RigidBodyType::_static); // Add a dyanmic rigid body
+
+	m_registry.emplace<BoxColliderComponent>(m_wall5, m_wall5, zeroRes); // Add a box collider with 0 resistition
 
 	m_camera = m_registry.create();
 	m_registry.emplace<TransformComponent>(m_camera, glm::vec2(5.12f,4.f), glm::vec2(5.12f, 4.f), 0.f); // Add a transform to the block
@@ -70,7 +76,14 @@ Scene::Scene()
 	m_registry.emplace<NativeScriptComponent>(m_camera);
 	m_registry.get<NativeScriptComponent>(m_camera).create<CamController>(m_camera);
 
+	m_enemy = m_registry.create();
+	m_registry.emplace<TransformComponent>(m_enemy, glm::vec2(0.5f, 0.5f), glm::vec2(-4.f, 7.0f), 0.f); // Add a transform to the block
+	m_registry.emplace<RenderComponent>(m_enemy, plainWhiteTexture, glm::vec4(0.f, 1.f, 0.f, 1.f)); // Add a render component
+	m_registry.emplace<RigidBodyComponent>(m_enemy, m_enemy, RigidBodyType::dynamic); // Add a dyanmic rigid body
 
+	m_registry.emplace<BoxColliderComponent>(m_enemy, m_enemy, zeroRes); // Add a box collider with 0 resistition
+	//m_registry.emplace<NativeScriptComponent>(m_enemy);
+	//m_registry.get<NativeScriptComponent>(m_enemy).create<SimpleController>(m_enemy);
 
 	m_projectiles.reserve(10000);
 

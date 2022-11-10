@@ -29,6 +29,8 @@ private:
 	entt::entity m_wall2;
 	entt::entity m_wall3;
 	entt::entity m_wall4;
+	entt::entity m_wall5;
+	entt::entity m_enemy;
 	std::vector<entt::entity> m_projectiles;
 
 	float timepassed = -1.f;

@@ -25,6 +25,8 @@ public:
 		if (Input::isKeyPressed(GLFW_KEY_Y)) tc.halfExtents += tc.halfExtents * (timestep * ctrl.zoomSpeed);
 		if (Input::isKeyPressed(GLFW_KEY_P)) tc.halfExtents -= tc.halfExtents * (timestep * ctrl.zoomSpeed);
 
+
+
 		cam.onUpdate(timestep);
 	};
 
