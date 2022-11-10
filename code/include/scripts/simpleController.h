@@ -43,8 +43,10 @@ public:
 
 			float _sin = sinf(rb.body->GetAngle());
 			float _cos = cosf(rb.body->GetAngle());
-			float x =  0.f;
-			float y =  2.f;
+			//float x =  0.f;
+			//float y =  2.f;
+			float x = 2.f;
+			float y = 0.f;
 
 			float xPrime = x * _cos - y * _sin;
 			float yPrime = x * _sin + y * _cos;
@@ -57,8 +59,8 @@ public:
 			//rb.body->ApplyLinearImpulseToCenter(b2Vec2(-0.2f, 0.0f), true);
 			float _sin = sinf(rb.body->GetAngle());
 			float _cos = cosf(rb.body->GetAngle());
-			float x = -2.f;
-			float y = 0.f;
+			float x =  0.f;
+			float y =  2.f;
 
 			float xPrime = x * _cos - y * _sin;
 			float yPrime = x * _sin + y * _cos;
@@ -70,8 +72,10 @@ public:
 			//rb.body->ApplyLinearImpulseToCenter(b2Vec2(0.f, -0.2f), true);
 			float _sin = sinf(rb.body->GetAngle());
 			float _cos = cosf(rb.body->GetAngle());
-			float x = 0.f;
-			float y = -2.f;
+			//float x = 0.f;
+			//float y = -2.f;
+			float x = -2.f;
+			float y = 0.f;
 
 			float xPrime = x * _cos - y * _sin;
 			float yPrime = x * _sin + y * _cos;
@@ -83,8 +87,8 @@ public:
 			//rb.body->ApplyLinearImpulseToCenter(b2Vec2(0.2f, 0.f), true);
 			float _sin = sinf(rb.body->GetAngle());
 			float _cos = cosf(rb.body->GetAngle());
-			float x = 2.f;
-			float y = 0.f;
+			float x = 0.f;
+			float y = -2.f;
 
 			float xPrime = x * _cos - y * _sin;
 			float yPrime = x * _sin + y * _cos;
