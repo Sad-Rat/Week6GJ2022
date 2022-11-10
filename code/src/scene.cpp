@@ -2,6 +2,7 @@
 
 #include "scripts/simpleController.h"
 #include "scripts/camController.h"
+#include "scripts/projectile.h"
 
 entt::registry Scene::m_registry;
 std::shared_ptr<b2World> Scene::m_physicsWorld = nullptr;
@@ -33,12 +34,33 @@ Scene::Scene()
 	m_registry.emplace<NativeScriptComponent>(m_fallingBlock);
 	m_registry.get<NativeScriptComponent>(m_fallingBlock).create<SimpleController>(m_fallingBlock);
 
-	m_wall = m_registry.create();
-	m_registry.emplace<TransformComponent>(m_wall, glm::vec2(1.5f, 0.2f), glm::vec2(10.f, 7.0f), 0.f); // Add a transform to the block
-	m_registry.emplace<RenderComponent>(m_wall, plainWhiteTexture, glm::vec4(1.f, 0.f, 0.f, 1.f)); // Add a render component
-	m_registry.emplace<RigidBodyComponent>(m_wall, m_wall, RigidBodyType::_static); // Add a dyanmic rigid body
+	m_wall1 = m_registry.create();
+	m_registry.emplace<TransformComponent>(m_wall1, glm::vec2(1.5f, 100.f), glm::vec2(100.f, 0.0f), 0.f); // Add a transform to the block
+	m_registry.emplace<RenderComponent>(m_wall1, plainWhiteTexture, glm::vec4(1.f, 0.f, 0.f, 1.f)); // Add a render component
+	m_registry.emplace<RigidBodyComponent>(m_wall1, m_wall1, RigidBodyType::_static); // Add a dyanmic rigid body
 	zeroRes.restitution = 0.f;
-	m_registry.emplace<BoxColliderComponent>(m_wall, m_wall, zeroRes); // Add a box collider with 0 resistition
+	m_registry.emplace<BoxColliderComponent>(m_wall1, m_wall1, zeroRes); // Add a box collider with 0 resistition
+
+	m_wall2 = m_registry.create();
+	m_registry.emplace<TransformComponent>(m_wall2, glm::vec2(1.5f, 100.f), glm::vec2(-100.f, 0.0f), 0.f); // Add a transform to the block
+	m_registry.emplace<RenderComponent>(m_wall2, plainWhiteTexture, glm::vec4(1.f, 0.f, 0.f, 1.f)); // Add a render component
+	m_registry.emplace<RigidBodyComponent>(m_wall2, m_wall2, RigidBodyType::_static); // Add a dyanmic rigid body
+	zeroRes.restitution = 0.f;
+	m_registry.emplace<BoxColliderComponent>(m_wall2, m_wall2, zeroRes); // Add a box collider with 0 resistition
+
+	m_wall3 = m_registry.create();
+	m_registry.emplace<TransformComponent>(m_wall3, glm::vec2(100.f, 1.5f), glm::vec2(0.f, 100.0f), 0.f); // Add a transform to the block
+	m_registry.emplace<RenderComponent>(m_wall3, plainWhiteTexture, glm::vec4(1.f, 0.f, 0.f, 1.f)); // Add a render component
+	m_registry.emplace<RigidBodyComponent>(m_wall3, m_wall3, RigidBodyType::_static); // Add a dyanmic rigid body
+	zeroRes.restitution = 0.f;
+	m_registry.emplace<BoxColliderComponent>(m_wall3, m_wall3, zeroRes); // Add a box collider with 0 resistition
+
+	m_wall4 = m_registry.create();
+	m_registry.emplace<TransformComponent>(m_wall4, glm::vec2(100.f, 1.5f), glm::vec2(0.f, -100.0f), 0.f); // Add a transform to the block
+	m_registry.emplace<RenderComponent>(m_wall4, plainWhiteTexture, glm::vec4(1.f, 0.f, 0.f, 1.f)); // Add a render component
+	m_registry.emplace<RigidBodyComponent>(m_wall4, m_wall4, RigidBodyType::_static); // Add a dyanmic rigid body
+	zeroRes.restitution = 0.f;
+	m_registry.emplace<BoxColliderComponent>(m_wall4, m_wall4, zeroRes); // Add a box collider with 0 resistition
 
 
 	m_camera = m_registry.create();
@@ -100,16 +122,16 @@ void Scene::onUpdate(float timeStep)
 		auto& tc = m_registry.get<TransformComponent>(m_fallingBlock);
 		glm::vec2 blockCenter = tc.position;
 		glm::vec2 offset;
-		offset.x = cos(tc.angle) * (tc.halfExtents.y + 0.11);
-		offset.y = sin(tc.angle) * (tc.halfExtents.y + 0.11);
+		offset.x = cos(tc.angle) * (tc.halfExtents.y + 0.22);
+		offset.y = sin(tc.angle) * (tc.halfExtents.y + 0.22);
 		m_registry.emplace<TransformComponent>(m_projectiles.back(), glm::vec2(0.1f,0.1f), blockCenter+offset, glm::degrees(tc.angle)); // Add a transform to the block
 		m_registry.emplace<RenderComponent>(m_projectiles.back(), plainWhiteTexture, glm::vec4(1.f, 0.f, 0.f, 1.f)); // Add a render component
 		m_registry.emplace<RigidBodyComponent>(m_projectiles.back(), m_projectiles.back(), RigidBodyType::dynamic); // Add a dyanmic rigid body
 		PhysicsMaterial zeroRes;
 		zeroRes.restitution = 0.f;
 		m_registry.emplace<BoxColliderComponent>(m_projectiles.back(), m_projectiles.back(), zeroRes); // Add a box collider with 0 resistition
-		//m_registry.emplace<NativeScriptComponent>(m_projEnt);
-		//m_registry.get<NativeScriptComponent>(m_projEnt).create<SimpleController>(m_projEnt);
+		m_registry.emplace<NativeScriptComponent>(m_projectiles.back());
+		m_registry.get<NativeScriptComponent>(m_projectiles.back()).create<projectile>(m_projectiles.back());
 
 
 
@@ -123,19 +145,33 @@ void Scene::onUpdate(float timeStep)
 	{
 		auto entity = *it;
 		auto& tc = m_registry.get<TransformComponent>(entity);
+		auto& script = m_registry.get<NativeScriptComponent>(entity);
 		glm::vec2 dist = tc.position - camTC.position;
 
 		glm::vec2 distSq = dist * dist;
 
-		if ((distSq.x + distSq.y) > thresh)
+		if ((distSq.x + distSq.y) > thresh )
 		{
+			//out of range deletion
+			auto& rb = m_registry.get<RigidBodyComponent>(entity);
+			m_physicsWorld->DestroyBody(rb.body);
 			m_registry.destroy(entity);
 			it = m_projectiles.erase(it);
 		}
-		else
+		else if (script.isRegisteredForDeletion())
+		{
+			//contact deletion
+			auto& rb = m_registry.get<RigidBodyComponent>(entity);
+			m_physicsWorld->DestroyBody(rb.body);
+			m_registry.destroy(entity);
+			it = m_projectiles.erase(it);
+		}
+		else 
 		{
 			++it;
 		}
+
+		
 
 	}
 	
