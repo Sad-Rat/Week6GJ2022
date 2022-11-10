@@ -23,14 +23,14 @@ UI::~UI()
 
 void UI::onRender()
 {
-	Renderer::begin(m_view, m_proj);
+	UIRenderer::begin(m_view, m_proj);
 
-	Renderer::enableStandardBlend();
-	//Renderer::drawQuad(Quad::createCentreHalfExtents(glm::vec2(512, 400), glm::vec2(400, 400), 0, false), *hpTexture, glm::vec4(1.0f));
-	Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(10, 100), glm::vec2(210, 70)), *hpTexture, glm::vec4(1.0f)); //hp background
-	Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(15, 50), glm::vec2(200 * hpRemaining, 15)), *plainWhiteTexture, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)); //hp bar
-	Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(10, getWinHeight() - 10), glm::vec2(336, 70)), *timerTexture, glm::vec4(1.0f)); //timer background
-	Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 346, getWinHeight() - 10), glm::vec2(336, 70)), *scoreTexture, glm::vec4(1.0f)); //score background
+	UIRenderer::enableStandardBlend();
+	//UIRenderer::drawQuad(Quad::createCentreHalfExtents(glm::vec2(512, 400), glm::vec2(400, 400), 0, false), *hpTexture, glm::vec4(1.0f));
+	UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(10, 100), glm::vec2(210, 70)), *hpTexture, glm::vec4(1.0f)); //hp background
+	UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(15, 50), glm::vec2(200 * hpRemaining, 15)), *plainWhiteTexture, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)); //hp bar
+	UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(10, getWinHeight() - 10), glm::vec2(336, 70)), *timerTexture, glm::vec4(1.0f)); //timer background
+	UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 346, getWinHeight() - 10), glm::vec2(336, 70)), *scoreTexture, glm::vec4(1.0f)); //score background
 
 	std::string scoreString = std::to_string(getScore());
 
@@ -38,34 +38,34 @@ void UI::onRender()
 		switch (scoreString.at(i))
 		{
 		case '0':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(120.f/175.f, 45.f / 175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(120.f/175.f, 45.f / 175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case '1':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(0.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(0.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case '2':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(30.f/175.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(30.f/175.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case '3':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(60.f/175.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(60.f/175.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case '4':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(90.f/175.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(90.f/175.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case '5':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(120.f/175.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(120.f/175.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case '6':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(0.f, 45.f/175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(0.f, 45.f/175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case '7':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(30.f/175.f, 45.f / 175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(30.f/175.f, 45.f / 175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case '8':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(60.f/175.f, 45.f / 175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(60.f/175.f, 45.f / 175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case '9':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(90.f/175.f, 45.f / 175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 156 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(90.f/175.f, 45.f / 175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		default:
 			break;
@@ -86,37 +86,37 @@ void UI::onRender()
 		switch (timeString.at(i))
 		{
 		case '0':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(120.f / 175.f, 45.f / 175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(120.f / 175.f, 45.f / 175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case '1':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(0.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(0.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case '2':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(30.f / 175.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(30.f / 175.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case '3':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(60.f / 175.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(60.f / 175.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case '4':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(90.f / 175.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(90.f / 175.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case '5':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(120.f / 175.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(120.f / 175.f, 0.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case '6':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(0.f, 45.f / 175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(0.f, 45.f / 175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case '7':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(30.f / 175.f, 45.f / 175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(30.f / 175.f, 45.f / 175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case '8':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(60.f / 175.f, 45.f / 175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(60.f / 175.f, 45.f / 175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case '9':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(90.f / 175.f, 45.f / 175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(90.f / 175.f, 45.f / 175.f), glm::vec2(30.f / 175.f, 45.f / 175.f));
 			break;
 		case ':':
-			Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(0.f / 175.f, 90.f/ 175.f), glm::vec2(30.f/175.f, 45.f / 175.f));
+			UIRenderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(206 + (i * 30), getWinHeight() - 15), glm::vec2(26, 60)), *numberTexture, glm::vec4(1.0f), glm::vec2(0.f / 175.f, 90.f/ 175.f), glm::vec2(30.f/175.f, 45.f / 175.f));
 			break;
 		default:
 			break;
@@ -124,7 +124,7 @@ void UI::onRender()
 	}
 
 
-	Renderer::disableBlend();
+	UIRenderer::disableBlend();
 
-	Renderer::end();
+	UIRenderer::end();
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include <glm/gtc/matrix_transform.hpp>
 #include "texture.h"
-#include "renderer.h"
+#include "UIrenderer.h"
 
 class UI {
 public:

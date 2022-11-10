@@ -2,6 +2,7 @@
 #include "input.h"
 #include "timer.h"
 #include "renderer.h"
+#include "uiRenderer.h"
 #include "scene.h"
 
 int main()
@@ -13,6 +14,7 @@ int main()
 	Scene scene(window.getWidthF(), window.getHeightF());
 
 	Renderer::init();
+	UIRenderer::init();
 
 	Timer timer;
 	float frameTime = 0.f;
