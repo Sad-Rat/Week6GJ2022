@@ -3,6 +3,7 @@
 #include "scripts/simpleController.h"
 #include "scripts/camController.h"
 #include "scripts/projectile.h"
+#include "scripts/AI.h"
 
 
 entt::registry Scene::m_registry;
@@ -83,8 +84,8 @@ Scene::Scene(float winWidth, float winHeight)
 	m_registry.emplace<RigidBodyComponent>(m_enemy, m_enemy, RigidBodyType::dynamic); // Add a dyanmic rigid body
 
 	m_registry.emplace<BoxColliderComponent>(m_enemy, m_enemy, zeroRes); // Add a box collider with 0 resistition
-	//m_registry.emplace<NativeScriptComponent>(m_enemy);
-	//m_registry.get<NativeScriptComponent>(m_enemy).create<SimpleController>(m_enemy);
+	m_registry.emplace<NativeScriptComponent>(m_enemy);
+	m_registry.get<NativeScriptComponent>(m_enemy).create<AI>(m_enemy, m_fallingBlock);
 
 	m_projectiles.reserve(10000);
 
