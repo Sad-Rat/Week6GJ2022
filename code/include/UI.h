@@ -14,6 +14,10 @@ public:
 	inline void setWinHeight(float height) { w_height = height; }
 	inline float getHpRemaining() { return hpRemaining; }
 	inline void setHPRemaining(float HP, float HPMax) { hpRemaining = HP / HPMax; }
+	inline void setScore(int scoreSent) { score = scoreSent; }
+	inline void setTime(int time) { timeSec = time; }
+	inline int getScore() { return score; }
+	inline int getTime() { return timeSec; }
 private:
 	std::shared_ptr<Texture> hpTexture;
 	std::shared_ptr<Texture> plainWhiteTexture;

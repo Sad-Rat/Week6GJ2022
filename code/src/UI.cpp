@@ -12,7 +12,7 @@ UI::UI(float winWidth, float winHeight, std::shared_ptr<Texture> pWT)
 	plainWhiteTexture = pWT;
 	setWinHeight(winHeight);
 	setWinWidth(winWidth);
-	hpRemaining = 0.5f;
+	hpRemaining = 0.9f;
 	timeSec = 100;
 	score = 2547;
 }
@@ -32,7 +32,7 @@ void UI::onRender()
 	Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(10, getWinHeight() - 10), glm::vec2(336, 70)), *timerTexture, glm::vec4(1.0f)); //timer background
 	Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(getWinWidth() - 346, getWinHeight() - 10), glm::vec2(336, 70)), *scoreTexture, glm::vec4(1.0f)); //score background
 
-	std::string scoreString = std::to_string(score);
+	std::string scoreString = std::to_string(getScore());
 
 	for (int i = 0; i < scoreString.length(); i++) {
 		switch (scoreString.at(i))
@@ -73,8 +73,8 @@ void UI::onRender()
 	}
 
 
-	int seconds = timeSec % 60;
-	int minutes = (int)(timeSec / 60);
+	int seconds = getTime() % 60;
+	int minutes = (int)(getTime() / 60);
 
 	std::string timeString = std::to_string(minutes);
 	timeString +=':';
