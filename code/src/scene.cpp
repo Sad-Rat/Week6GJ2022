@@ -87,6 +87,7 @@ Scene::Scene(float winWidth, float winHeight)
 
 	m_projectiles.reserve(10000);
 
+	m_UI.reset(new UI(winWidth, winHeight, plainWhiteTexture));
 }
 
 
@@ -152,7 +153,7 @@ void Scene::onUpdate(float timeStep)
 		rb.body->ApplyLinearImpulseToCenter(b2Vec2((cos(tc.angle) * 0.1f), (sin(tc.angle) * 0.1f)), true);
 	}
 
-	float thresh = 10 * 10;
+	float thresh = 10000 * 10000;
 	auto& camTC = m_registry.get<TransformComponent>(m_camera);
 	for (auto it = m_projectiles.begin(); it != m_projectiles.end();)
 	{

@@ -9,7 +9,7 @@ Renderer::RendererData Renderer::s_data;
 void Renderer::init()
 {
 	s_data.clearColour = glm::vec4(0.f, 0.f, 0.f, 1.f);
-	
+
 	s_data.shader.reset(new Shader("../assets/shaders/quad.vert", "../assets/shaders/quad.frag"));
 
 	float vertices[4 * 4] = {
@@ -58,7 +58,7 @@ void Renderer::drawQuad(const Quad& quad, const Texture& texture, const glm::vec
 	s_data.shader->uploadInt("u_texData", 0); // Tell the shader to use texture at correct unit
 
 	// Do geomertry tranforms
-	glm::mat4 model = glm::scale(glm::rotate(glm::translate(glm::mat4(1.f), glm::vec3(quad.m_position, 0.0)),quad.m_angle, { 0.f, 0.f, 1.f }), glm::vec3(quad.m_halfExtents * 2.f, 1.f));
+	glm::mat4 model = glm::scale(glm::rotate(glm::translate(glm::mat4(1.f), glm::vec3(quad.m_position, 0.0)), quad.m_angle, { 0.f, 0.f, 1.f }), glm::vec3(quad.m_halfExtents * 2.f, 1.f));
 	s_data.shader->uploadFloat4("u_tint", tint);
 	s_data.shader->uploadMat4("u_model", model);
 
@@ -73,7 +73,7 @@ void Renderer::drawQuad(const Quad& quad, const Texture& texture, const glm::vec
 
 void Renderer::drawText(const Quad& quad, const char& text, const glm::vec4& tint)
 {
-	
+
 }
 
 void Renderer::clearScreen()
@@ -131,9 +131,9 @@ Quad Quad::createTopLeftExtents(const glm::vec2& topLeft, const glm::vec2& Exten
 {
 	Quad result;
 
-	result.m_position = topLeft + Extents*0.5f;
+	result.m_position = topLeft + Extents * 0.5f;
 	result.m_position.y -= Extents.y;
-	result.m_halfExtents = Extents*0.5f;
+	result.m_halfExtents = Extents * 0.5f;
 	result.m_angle = 0;
 
 	return result;

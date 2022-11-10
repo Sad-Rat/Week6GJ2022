@@ -16,4 +16,3 @@ void main()
 	texCoord = (a_texCoord * u_size) + u_offset;
 	gl_Position =  u_projection * u_view * u_model * vec4(a_vertexPosition,1.0,1.0);
 }
-
