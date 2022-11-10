@@ -4,6 +4,7 @@
 #include "scripts/camController.h"
 #include "scripts/projectile.h"
 
+
 entt::registry Scene::m_registry;
 std::shared_ptr<b2World> Scene::m_physicsWorld = nullptr;
 
@@ -196,6 +197,7 @@ void Scene::onRender()
 	auto& cam = m_registry.get<CameraComponent>(m_camera);
 	Renderer::begin(cam.view, cam.proj);
 	Renderer::clearScreen();
+
 
 	auto& renderView = m_registry.view<TransformComponent, RenderComponent>();
 

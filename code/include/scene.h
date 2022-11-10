@@ -8,6 +8,7 @@
 #include "texture.h"
 #include "renderer.h"
 #include "components.h"
+#include "ambientlight.h"
 
 class Scene
 {
@@ -40,4 +41,6 @@ private:
 	// Some textures
 	std::shared_ptr<Texture> plainWhiteTexture;
 	std::shared_ptr<Texture> letterCubeTexture;
+
+	AmbientLight* aLight;
 };

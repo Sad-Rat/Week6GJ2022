@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "texture.h"
-#include "shader.h"
+#include "pointlight.h"
 #include "VertexArray.h"
 
 class Quad
@@ -35,6 +35,11 @@ public:
 	static void disableBlend();
 	static void enableDepthTest();
 	static void disableDepthTest();
+
+	static int addPointLight(pointLight* plight);
+	static void removePointLight(int pos);
+
+
 	// Draw command
 	static void begin(const glm::mat4& view, const glm::mat4& projection);
 	static void end();
@@ -44,10 +49,12 @@ private:
 	struct RendererData
 	{
 		RendererData() {};
-		glm::vec3 clearColour = glm::vec3(1.f);
+		glm::vec3 clearColour = glm::vec3(0.f);
 		std::shared_ptr<Shader> shader;
 		std::shared_ptr<VertexArray> VAO;
 	};
+
+	static std::vector<pointLight*> pLights;
 
 	static RendererData s_data;
 };

@@ -2,6 +2,7 @@
 			
 layout(location = 0) out vec4 colour;
 
+
 in vec2 texCoord;
 
 uniform vec4 u_tint;
