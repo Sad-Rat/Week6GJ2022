@@ -20,12 +20,8 @@ void Renderer::init()
 	secondPLight->init({ 2, 3 }, 2.0f, s_data.shader.get());
 
 
-	for (size_t i = 0; i < 1000; i++)
-	{
-		addPointLight(mainPlight);
-	}
-	//addPointLight(mainPlight);
-	//addPointLight(secondPLight);
+	addPointLight(mainPlight);
+	addPointLight(secondPLight);
 
 
 	setClearColour({ s_data.clearColour, 1.0 });
@@ -132,9 +128,15 @@ void Renderer::disableDepthTest()
 
 std::vector<pointLight*> Renderer::pLights = {};
 
-void Renderer::addPointLight(pointLight* plight)
+int Renderer::addPointLight(pointLight* plight)
 {
 	pLights.push_back(plight);
+	return pLights.size() - 1;
+}
+
+void Renderer::removePointLight(int pos)
+{
+	pLights.erase(pLights.begin() + pos);
 }
 
 

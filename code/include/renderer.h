@@ -33,7 +33,11 @@ public:
 	static void disableBlend();
 	static void enableDepthTest();
 	static void disableDepthTest();
-	static void addPointLight(pointLight* plight);
+
+	static int addPointLight(pointLight* plight);
+	static void removePointLight(int pos);
+
+
 	// Draw command
 	static void begin(const glm::mat4& view, const glm::mat4& projection);
 	static void end();
