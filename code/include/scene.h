@@ -34,9 +34,11 @@ private:
 	entt::entity m_wall4;
 	entt::entity m_wall5;
 	entt::entity m_enemy;
+	entt::entity m_background;
 	std::vector<entt::entity> m_projectiles;
 
 	float timepassed = -1.f;
+	int playerLID = 0 ;
 
 	// Some textures
 	std::shared_ptr<Texture> plainWhiteTexture;

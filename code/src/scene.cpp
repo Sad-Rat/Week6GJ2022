@@ -8,6 +8,7 @@
 entt::registry Scene::m_registry;
 std::shared_ptr<b2World> Scene::m_physicsWorld = nullptr;
 
+
 Scene::Scene(float winWidth, float winHeight)
 {
 	m_physicsWorld.reset(new b2World(b2Vec2(0.f, 0.f)));
@@ -25,6 +26,7 @@ Scene::Scene(float winWidth, float winHeight)
 	//m_registry.emplace<RigidBodyComponent>(m_texturedBlock, m_texturedBlock); // Add a static rigid body
 	//m_registry.emplace<BoxColliderComponent>(m_texturedBlock, m_texturedBlock); // Add a box collider with standard physics
 
+	//Char
 	m_fallingBlock = m_registry.create(); 
 	m_registry.emplace<TransformComponent>(m_fallingBlock, glm::vec2(0.5f, 0.5f), glm::vec2(4.f, 7.0f), 0.f); // Add a transform to the block
 	m_registry.emplace<RenderComponent>(m_fallingBlock, plainWhiteTexture, glm::vec4(1.f, 0.f, 0.f, 1.f)); // Add a render component
@@ -35,6 +37,9 @@ Scene::Scene(float winWidth, float winHeight)
 	m_registry.emplace<NativeScriptComponent>(m_fallingBlock);
 	m_registry.get<NativeScriptComponent>(m_fallingBlock).create<SimpleController>(m_fallingBlock);
 
+
+
+	//Walls
 	m_wall1 = m_registry.create();
 	m_registry.emplace<TransformComponent>(m_wall1, glm::vec2(1.5f, 100.f), glm::vec2(100.f, 0.0f), 0.f); // Add a transform to the block
 	m_registry.emplace<RenderComponent>(m_wall1, plainWhiteTexture, glm::vec4(1.f, 0.f, 0.f, 1.f)); // Add a render component
@@ -70,6 +75,7 @@ Scene::Scene(float winWidth, float winHeight)
 
 	m_registry.emplace<BoxColliderComponent>(m_wall5, m_wall5, zeroRes); // Add a box collider with 0 resistition
 
+	//Cam
 	m_camera = m_registry.create();
 	m_registry.emplace<TransformComponent>(m_camera, glm::vec2(5.12f,4.f), glm::vec2(5.12f, 4.f), 0.f); // Add a transform to the block
 	m_registry.emplace<CameraComponent>(m_camera, m_camera);
@@ -77,6 +83,8 @@ Scene::Scene(float winWidth, float winHeight)
 	m_registry.emplace<NativeScriptComponent>(m_camera);
 	m_registry.get<NativeScriptComponent>(m_camera).create<CamController>(m_camera);
 
+
+	//nemies
 	m_enemy = m_registry.create();
 	m_registry.emplace<TransformComponent>(m_enemy, glm::vec2(0.5f, 0.5f), glm::vec2(-4.f, 7.0f), 0.f); // Add a transform to the block
 	m_registry.emplace<RenderComponent>(m_enemy, plainWhiteTexture, glm::vec4(0.f, 1.f, 0.f, 1.f)); // Add a render component
@@ -110,10 +118,17 @@ void Scene::onUpdate(float timeStep)
 	// update any transforms
 	auto& rbView = m_registry.view<TransformComponent, RigidBodyComponent>();
 
+
+
 	for (auto& entity : rbView)
 	{
 		auto& transform = m_registry.get<TransformComponent>(entity);
 		auto& rigidBody = m_registry.get<RigidBodyComponent>(entity);
+
+		if (rigidBody.body == m_registry.get<RigidBodyComponent>(m_fallingBlock).body)
+		{
+			Renderer::movePointLight(playerLID, rigidBody.body->GetPosition().x, rigidBody.body->GetPosition().y);
+		}
 
 		if (rigidBody.bodyType != RigidBodyType::_static)
 		{
@@ -197,6 +212,9 @@ void Scene::onRender()
 	auto& cam = m_registry.get<CameraComponent>(m_camera);
 	Renderer::begin(cam.view, cam.proj);
 	Renderer::clearScreen();
+
+	Renderer::drawQuad(Quad::createTopLeftExtents(glm::vec2(-250.f, 250.f), glm::vec2(1000.f, 1000.f)), (*plainWhiteTexture), glm::vec4(1));
+
 
 
 	auto& renderView = m_registry.view<TransformComponent, RenderComponent>();

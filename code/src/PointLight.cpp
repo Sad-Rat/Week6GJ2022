@@ -24,6 +24,8 @@ void pointLight::render(int pos)
 	std::string toSend;
 	toSend = ("PointLightsPos[" + std::to_string(pos) + "]");
 	m_shader->uploadFloat2(toSend.c_str(), m_pos);
+	toSend = ("PointLightsInten[" + std::to_string(pos) + "]");
+	m_shader->uploadFloat(toSend.c_str(), intensity);
 }
 
 void pointLight::setColour()
@@ -48,7 +50,7 @@ void pointLight::setShader()
 
 }
 
-void pointLight::setPos(vec2 pos)
+void pointLight::setPos(glm::vec2 pos)
 {
 	m_pos = pos;
 }

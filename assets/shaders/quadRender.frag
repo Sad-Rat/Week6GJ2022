@@ -8,7 +8,7 @@ uniform vec3 aLightColour;
 uniform vec2 pLightPos;
 
 uniform vec2 PointLightsPos[1000];
-uniform float PointLightsInten[20];
+uniform float PointLightsInten[1000];
 uniform vec3 PointLightsColour[20];
 
 in vec2 texCoord;
@@ -17,22 +17,22 @@ in vec2 posWS;
 uniform vec4 u_tint;
 uniform sampler2D u_texData;
 
-float pointLight(vec2);
+float pointLight(vec2, float);
 
 void main()
 {
 	float pLightMul = 0.0f;
 	for (int i = 0; i < 1000; i++)
 	{
-		pLightMul += pointLight(PointLightsPos[i]);
+		pLightMul += pointLight(PointLightsPos[i], PointLightsInten[i]);
 	}
 	
-	colour = texture(u_texData, texCoord) * u_tint * aLightIntensity * pLightMul;
+	colour = texture(u_texData, texCoord) * u_tint * (aLightIntensity + pLightMul);
 	
 	
 }
 
-float pointLight(vec2 pLightPos)
+float pointLight(vec2 pLightPos, float inten)
 {
 	if(pLightPos == vec2(0))
 	{
@@ -41,6 +41,18 @@ float pointLight(vec2 pLightPos)
 	
 	float dist = length(pLightPos - posWS);
 	
-	return 1 / dist;
+	
+	
+	float temp = (1 / (dist * dist)) / 0.5 * 0.1f;
+	if (temp  < 0.05f)
+	{
+		
+	}
+	else if (temp < 0.5f)
+	{
+		temp += 0.1f;
+	}
+	
+	return temp;
 }
 

@@ -15,11 +15,7 @@ public:
 
 	void onUpdate(float timestep) override
 	{
-		// Change colour
-		m_colour += glm::vec4(timestep, timestep * 0.5f, timestep * 0.25f, 0.f);
-		if (m_colour.x > 0.8f) m_colour.x -= 1.f;
-		if (m_colour.y > 0.8f) m_colour.y -= 1.f;
-		if (m_colour.z > 0.8f) m_colour.z -= 1.f;
+		
 
 		auto& rc = m_registry.get<RenderComponent>(m_entity);
 		rc.tint = m_colour;

@@ -13,15 +13,21 @@ void Renderer::init()
 
 	s_data.shader.reset(new Shader("../assets/shaders/quadRender.vert", "../assets/shaders/quadRender.frag"));
 
+
+	pointLight* playerPlight = new pointLight();
+	playerPlight->init({ 6, 4 }, 0.1f, s_data.shader.get());
+
 	pointLight* mainPlight = new pointLight();
-	mainPlight->init({ 6, 4 }, 2.0f, s_data.shader.get());
+	mainPlight->init({ 6, 4 }, 0.1f, s_data.shader.get());
 
 	pointLight* secondPLight = new pointLight();
-	secondPLight->init({ 2, 3 }, 2.0f, s_data.shader.get());
+	secondPLight->init({ -10, 3 }, 0.1f, s_data.shader.get());
 
 
+	addPointLight(playerPlight);
 	addPointLight(mainPlight);
 	addPointLight(secondPLight);
+
 
 
 	setClearColour({ s_data.clearColour, 1.0 });
@@ -62,7 +68,7 @@ void Renderer::begin(const glm::mat4& view, const glm::mat4& projection)
 		pLights[i]->render(i);
 	}
 
-	s_data.shader->uploadFloat("aLightIntensity", 1.0);
+	s_data.shader->uploadFloat("aLightIntensity", 0.5);
 	//s_data.shader->uploadFloat2("pLightPos", { 2, 3 });
 
 	s_data.VAO->bind();
@@ -147,5 +153,10 @@ int Renderer::addPointLight(pointLight* plight)
 void Renderer::removePointLight(int pos)
 {
 	pLights.erase(pLights.begin() + pos);
+}
+
+void Renderer::movePointLight(int pos, float xPos, float yPos)
+{
+	pLights[pos]->setPos(glm::vec2(xPos, yPos));
 }
 

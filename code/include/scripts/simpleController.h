@@ -10,15 +10,13 @@ public:
 	{
 		auto& rc = m_registry.get<RenderComponent>(m_entity);
 		m_colour = rc.tint;
+
+
 	};
 
 	void onUpdate(float timestep) override 
 	{
-		// Change colour
-		m_colour += glm::vec4(timestep, timestep * 0.5f, timestep * 0.25f, 0.f);
-		if (m_colour.x > 0.8f) m_colour.x -= 1.f;
-		if (m_colour.y > 0.8f) m_colour.y -= 1.f;
-		if (m_colour.z > 0.8f) m_colour.z -= 1.f;
+
 
 		auto& rc = m_registry.get<RenderComponent>(m_entity);
 		rc.tint = m_colour;
@@ -106,6 +104,8 @@ public:
 
 		b2Vec2 force(rb.body->GetMass() * b2Vec2(DeltVel.x / timestep, DeltVel.y / timestep));
 		rb.body->ApplyForceToCenter(force, true);
+
+		//Renderer::movePointLight(Renderer::playerLID, rb.body->GetPosition().x, rb.body->GetPosition().y);
 
 		float CurAngVel = rb.body->GetAngularVelocity();
 		float DeltaAngVel = DesAnglVel - CurAngVel;

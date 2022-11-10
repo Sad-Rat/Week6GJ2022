@@ -5,7 +5,7 @@ class pointLight : public light
 {
 public:
 	pointLight();
-	void init(vec2, float, Shader*);
+	void init(glm::vec2, float, Shader*);
 	virtual void render(int) override;
 	virtual void render(Shader*, int) override;
 	virtual void setShader() override;
@@ -13,10 +13,10 @@ public:
 	virtual vec3 getColour() override;
 	virtual void setIntensity() override;
 	virtual float getIntensity() override;
-	void setPos(vec2 pos);
+	void setPos(glm::vec2 pos);
 
 
 private:
-	vec2 m_pos;
+	glm::vec2 m_pos;
 
 };
